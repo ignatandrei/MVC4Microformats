@@ -1,0 +1,100 @@
+﻿@using MVC4Microformats;
+@model MVC4Microformats.Calendar.MFCalendar
+
+@{
+    
+    ViewBag.Title = "Calendar";
+    string s= "";
+    foreach (var item in ViewData.ModelState.Values) {
+        if (item.Errors != null && item.Errors.Count > 0) { 
+            s += (item.Errors[0].Exception != null) ? item.Errors[0].Exception.Message : item.Errors[0].ErrorMessage;
+        }
+    }
+}
+
+<h2>Calendar</h2>
+@if (s.Length == 0) { 
+    @Model.Generate()
+}
+
+<form method="post" action='@Url.Action("ReturnFile", "Home")' target='_blank'>
+
+    <input type="hidden"  name="resultHtml" value="@Model.GenerateICalendar().Replace("\"","'")" />
+    <input type="hidden" name="nameFile" value="cal.ics" />
+    <input type="hidden" name="eventName" value="MyEvent" />
+    <input type="submit" value="Download event" />
+</form>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Calendar Demo</legend>
+
+        <div class="editor-label">
+            Start date
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DtStart)
+            @Html.ValidationMessageFor(model => model.DtStart)
+        </div>
+
+        <div class="editor-label">
+            Summary
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Summary)
+            @Html.ValidationMessageFor(model => model.Summary)
+        </div>
+
+        <div class="editor-label">
+            Date end(optional)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DtEnd)
+            @Html.ValidationMessageFor(model => model.DtEnd)
+        </div>
+
+        <div class="editor-label">
+            Location(optional)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            Url(optional)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Url)
+            @Html.ValidationMessageFor(model => model.Url)
+        </div>
+
+        <div class="editor-label">
+            Description(optional)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            Editor Format
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m=>m.FormatCalendarType,(IEnumerable<SelectListItem>)ViewBag.cf)
+        </div>
+        <p>
+            <input type="submit" value="Save event to see it!" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

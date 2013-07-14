@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                Microformats demo. 
+                For the moment the  @Html.ActionLink("Calendar", "Calendar", "Home") implementation
+            </p>
+        </div>
+    </section>
+}
+<h3>We suggest to read the following:</h3>
+<ol class="round">
+    <li class="one">
+        <h5>Microformats site for calendar</h5>
+        
+        <a href="http://microformats.org/wiki/hcalendar" target="_blank">http://microformats.org/wiki/hcalendar</a>
+    </li>
+
+    <li class="two">
+        <h5>HTML5 microformat for calendar</h5>
+        
+        <a href="http://microformats.org/wiki/HTML5" target="_blank">http://microformats.org/wiki/HTML5</a>
+    </li>
+
+    <li class="three">
+        <h5>Schema format</h5>        
+        <a href="http://schema.org/Event" target="_blank">http://schema.org/Event</a>
+    </li>
+    <li class="four">
+        <h5>iCalendar format</h5>        
+        <a href="http://tools.ietf.org/html/rfc2445#page-136" target="_blank">http://tools.ietf.org/html/rfc2445#page-136</a>
+    </li>
+</ol>
